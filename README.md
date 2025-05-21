@@ -5,11 +5,14 @@ A webhook service that receives TradingView alerts and executes trades on the Kr
 ## Features
 
 - **Webhook Receiver**: Accepts and validates incoming TradingView alerts
-- **Payload Processor**: Parses and validates JSON structure
+- **Payload Processor**: Parses and validates JSON structure with Pydantic
 - **Trade Executor**: Interacts with Kraken API to execute trades
 - **Secure Credential Management**: Supports environment variables and Google Cloud Secret Manager
 - **Error Handling & Logging**: Comprehensive error handling and structured logging
 - **Cloud-Ready**: Designed for deployment to Google Cloud Run
+- **Signature Validation**: HMAC-SHA256 signature validation for webhook security
+- **Order Validation**: Ability to validate orders without executing them
+- **Multiple Order Types**: Support for market, limit, stop-loss, and other order types
 
 ## Architecture
 
@@ -135,6 +138,52 @@ docker run -p 8080:8080 --env-file .env tradingview-kraken-webhook
 Once the service is running, you can access the OpenAPI documentation at:
 - Swagger UI: `http://localhost:8080/docs`
 - ReDoc: `http://localhost:8080/redoc`
+
+## Testing
+
+### Unit Tests
+
+Run the unit tests with pytest:
+
+```
+pytest
+```
+
+### Manual Testing
+
+Use the included test script to send test webhook requests:
+
+```
+python scripts/test_webhook.py --url http://localhost:8080/webhook/tradingview --payload examples/tradingview_alert.json --secret your_webhook_secret
+```
+
+To validate a trade without executing it:
+
+```
+python scripts/test_webhook.py --url http://localhost:8080/webhook/tradingview --payload examples/tradingview_alert.json --secret your_webhook_secret --validate
+```
+
+## Configuration
+
+The service can be configured using environment variables:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `KRAKEN_API_KEY` | Kraken API key | - |
+| `KRAKEN_API_SECRET` | Kraken API secret | - |
+| `WEBHOOK_SECRET` | Secret for webhook signature validation | - |
+| `ENVIRONMENT` | Environment (development, staging, production) | development |
+| `LOG_LEVEL` | Logging level (INFO, DEBUG, WARNING, ERROR) | INFO |
+| `GCP_PROJECT_ID` | Google Cloud project ID for Secret Manager | - |
+| `PORT` | Port to run the service on | 8080 |
+
+## Security Considerations
+
+- Always use HTTPS for production deployments
+- Enable webhook signature validation by setting a `WEBHOOK_SECRET`
+- Store API keys securely using environment variables or Google Cloud Secret Manager
+- Consider restricting access to the webhook endpoint using Cloud Run authentication
+- Regularly rotate API keys and webhook secrets
 
 ## License
 
