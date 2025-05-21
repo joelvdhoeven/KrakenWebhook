@@ -1,0 +1,1 @@
+"""Payload processor module for the TradingView to Kraken webhook service."""

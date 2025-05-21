@@ -1,0 +1,27 @@
+# Web framework
+fastapi>=0.95.0
+uvicorn>=0.21.0
+
+# Kraken API
+krakenex>=2.1.0
+pykrakenapi>=0.3.1
+
+# HTTP client
+requests>=2.28.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Validation
+pydantic>=2.0.0
+
+# Logging and monitoring
+structlog>=23.1.0
+
+# Testing
+pytest>=7.3.1
+pytest-cov>=4.1.0
+
+# Google Cloud
+google-cloud-secret-manager>=2.16.0
+google-cloud-logging>=3.5.0

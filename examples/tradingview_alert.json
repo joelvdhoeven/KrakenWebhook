@@ -1,0 +1,13 @@
+{
+  "symbol": "XBTUSD",
+  "side": "buy",
+  "order_type": "market",
+  "volume": 0.001,
+  "strategy_name": "Golden Cross Strategy",
+  "alert_message": "BTC/USD crossed above the 50-day moving average",
+  "custom_fields": {
+    "timeframe": "1h",
+    "signal_strength": "strong",
+    "risk_level": "medium"
+  }
+}

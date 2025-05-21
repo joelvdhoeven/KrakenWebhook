@@ -1,0 +1,1 @@
+"""Webhook receiver module for the TradingView to Kraken webhook service."""

@@ -1,0 +1,1 @@
+"""Trade executor module for the TradingView to Kraken webhook service."""
